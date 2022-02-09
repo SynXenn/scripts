@@ -1,0 +1,7 @@
+if _G.uiLib == "mercury" then do
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SynXenn/ui-libs/main/mercuryTOM"))();
+end
+elseif _G.uiLib == "kavo" then do
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/SynXenn/ui-libs/main/kavoTOM"))();
+end
+end
