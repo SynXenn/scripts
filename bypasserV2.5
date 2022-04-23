@@ -5,11 +5,13 @@ f = hookmetamethod(game.Players.LocalPlayer,"__namecall", function(...)
     end 
     return f()
 end)
-local OldNameCall = nil
-OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
-    local NameCallMethod = getnamecallmethod()
-    if tostring(string.lower(NameCallMethod)) == "kick" then
+local GameMetatable = getrawmetatable(game)
+local GameIndex = GameMetatabme.__index
+setreadonly(game, false)
+GameMetatable.__index = newcclosure(function(self, Key)
+    if self == game and Key == "HttpGet" then
         return nil
     end
-    return OldNameCall(Self, ...)
+    return GameIndex(self, Key)
 end)
+setreadonly(game, true)
