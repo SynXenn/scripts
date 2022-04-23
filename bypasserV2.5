@@ -1,5 +1,5 @@
 local f
-f = hookmetamethod(game.Player.LocalPlayer,"__namecall", function(...)                                                                 
+f = hookmetamethod(game.Players.LocalPlayer,"__namecall", function(...)                                                                 
     if getnamecallmethod() == "Kick" then 
     return 
     end 
