@@ -21,3 +21,18 @@ GameMetatable.__index = newcclosure(function(self, Key)
     return GameIndex(self, Key)
 end)
 setreadonly(game, true)
+while wait(1) do
+		if pcall(
+			function()
+				if game:GetService('Players').LocalPlayer.Idled == nil then
+					print('a'+1)
+				end
+			end
+		) then
+		for i,v in pairs(getconnections(game:GetService('Players').LocalPlayer.Idled)) do
+			v:Disable()
+		end
+		break
+	end
+end
+printconsole("ViceHub - Succesfully Started Bypasser",0,250,255)
