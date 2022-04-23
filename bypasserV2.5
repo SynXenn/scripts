@@ -13,14 +13,3 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
     end
     return OldNameCall(Self, ...)
 end)
-local GameMetatable = getrawmetatable(game)
-local GameIndex = GameMetatabme.__index
-
-setreadonly(game, false)
-GameMetatable.__index = newcclosure(function(self, Key)
-    if self == game and Key == "HttpGet" then
-        return nil
-    end
-    return GameIndex(self, Key)
-end)
-setreadonly(game, true)
