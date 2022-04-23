@@ -12,11 +12,11 @@ mt.__namecall = newcclosure(function(Self, ...)
 end)
 setreadonly(mt, true)
 local GameMetatable = getrawmetatable(game)
-local GameIndex = GameMetatabme.__index
+local GameIndex = GameMetatable.__index
 setreadonly(game, false)
 GameMetatable.__index = newcclosure(function(self, Key)
     if self == game and Key == "HttpGet" then
-        return nil -- if HttpGet is required, exploiters can easily cache the value returned from game.HttpGet
+        return nil 
     end
     return GameIndex(self, Key)
 end)
