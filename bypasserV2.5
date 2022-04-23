@@ -1,0 +1,23 @@
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+local oldmt = mt.__namecall
+mt.__namecall = newcclosure(function(Self, ...)
+    local method = getnamecallmethod()
+    if method == 'Kick' then
+        print("Attempted Kick")
+        wait(9e9)
+        return nil
+    end
+    return oldmt(Self, ...)
+end)
+setreadonly(mt, true)
+local GameMetatable = getrawmetatable(game)
+local GameIndex = GameMetatabme.__index
+setreadonly(game, false)
+GameMetatable.__index = newcclosure(function(self, Key)
+    if self == game and Key == "HttpGet" then
+        return nil -- if HttpGet is required, exploiters can easily cache the value returned from game.HttpGet
+    end
+    return GameIndex(self, Key)
+end)
+setreadonly(game, true)
