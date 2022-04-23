@@ -16,7 +16,7 @@ local GameIndex = GameMetatable.__index
 setreadonly(GameMetatable, false)
 GameMetatable.__index = newcclosure(function(self, Key)
     if self == game and Key == "HttpGet" then
-        return nil -- if HttpGet is required, exploiters can easily cache the value returned from game.HttpGet
+        return nil 
     end
     return GameIndex(self, Key)
 end)
