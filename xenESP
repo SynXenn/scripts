@@ -1,13 +1,15 @@
+--kiriot22s esp if i get lazy on crating esp
+--Settings--
 local ESP = {
     Enabled = false,
     Boxes = true,
     BoxShift = CFrame.new(0,-1.5,0),
 	BoxSize = Vector3.new(4,6,0),
-    Color = Color3.fromRGB(0,250,255),
+    Color = Color3.fromRGB(0,255,0),
     FaceCamera = false,
     Names = true,
     TeamColor = true,
-    Thickness = 1,
+    Thickness = 2,
     AttachShift = 1,
     TeamMates = true,
     Players = true,
@@ -16,7 +18,7 @@ local ESP = {
     Overrides = {}
 }
 
---Locals
+--Declarations--
 local cam = workspace.CurrentCamera
 local plrs = game:GetService("Players")
 local plr = plrs.LocalPlayer
@@ -25,7 +27,7 @@ local mouse = plr:GetMouse()
 local V3new = Vector3.new
 local WorldToViewportPoint = cam.WorldToViewportPoint
 
---Functions
+--Functions--
 local function Draw(obj, props)
 	local new = Drawing.new(obj)
 	
@@ -76,7 +78,7 @@ function ESP:Toggle(bool)
     self.Enabled = bool
     if not bool then
         for i,v in pairs(self.Objects) do
-            if v.Type == "Box" then 
+            if v.Type == "Box" then --fov circle etc
                 if v.Temporary then
                     v:Remove()
                 else
@@ -106,6 +108,7 @@ function ESP:AddObjectListener(parent, options)
                         IsEnabled = options.IsEnabled,
                         RenderInNil = options.RenderInNil
                     })
+                    --TODO: add a better way of passing options
                     if options.OnAdded then
                         coroutine.wrap(options.OnAdded)(box)
                     end
@@ -141,6 +144,7 @@ end
 
 function boxBase:Update()
     if not self.PrimaryPart then
+        --warn("not supposed to print", self.Object)
         return self:Remove()
     end
 
@@ -179,7 +183,7 @@ function boxBase:Update()
         color = ESP.HighlightColor
     end
 
-    --esp pos
+    --calculations--
     local cf = self.PrimaryPart.CFrame
     if ESP.FaceCamera then
         cf = CFrame.new(cf.p, cam.CFrame.p)
@@ -261,8 +265,9 @@ function ESP:Add(obj, options)
 
     local box = setmetatable({
         Name = options.Name or obj.Name,
+	Team = p.Team
         Type = "Box",
-        Color = options.Color,
+        Color = options.Color --[[or self:GetColor(obj)]],
         Size = options.Size or self.BoxSize,
         Object = obj,
         Player = options.Player or plrs:GetPlayerFromCharacter(obj),
@@ -286,7 +291,7 @@ function ESP:Add(obj, options)
         Visible = self.Enabled and self.Boxes
     })
     box.Components["Name"] = Draw("Text", {
-		Text = box.Name..box.Team,
+		Text = box.Name and box.Team,
 		Color = box.Color,
 		Center = true,
 		Outline = true,
@@ -341,6 +346,7 @@ local function CharAdded(char)
                 ev:Disconnect()
                 ESP:Add(char, {
                     Name = p.Name,
+		    Team = p.Team
                     Player = p,
                     PrimaryPart = c
                 })
@@ -349,7 +355,6 @@ local function CharAdded(char)
     else
         ESP:Add(char, {
             Name = p.Name,
-            Team = p.Team,
             Player = p,
             PrimaryPart = char.HumanoidRootPart
         })
