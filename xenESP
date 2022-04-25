@@ -3,12 +3,12 @@ local ESP = {
     Enabled = false,
     Boxes = true,
     BoxShift = CFrame.new(0,-1.5,0),
-    BoxSize = Vector3.new(4,6,0),
-    Color = Color3.fromRGB(255,255,255),
+	BoxSize = Vector3.new(4,6,0),
+    Color = Color3.fromRGB(0,255,0),
     FaceCamera = false,
     Names = true,
     TeamColor = true,
-    Thickness = 1,
+    Thickness = 2,
     AttachShift = 1,
     TeamMates = true,
     Players = true,
@@ -225,7 +225,7 @@ function boxBase:Update()
         if Vis5 then
             self.Components.Name.Visible = true
             self.Components.Name.Position = Vector2.new(TagPos.X, TagPos.Y)
-            self.Components.Name.Text = self.Name.." - "p.Team
+            self.Components.Name.Text = self.Name
             self.Components.Name.Color = color
             
             self.Components.Distance.Visible = true
