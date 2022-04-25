@@ -1,15 +1,14 @@
---kiriot22s esp if i get lazy on crating esp
 --Settings--
 local ESP = {
     Enabled = false,
     Boxes = true,
     BoxShift = CFrame.new(0,-1.5,0),
-	BoxSize = Vector3.new(4,6,0),
-    Color = Color3.fromRGB(0,255,0),
+    BoxSize = Vector3.new(4,6,0),
+    Color = Color3.fromRGB(0,250,255),
     FaceCamera = false,
     Names = true,
     TeamColor = true,
-    Thickness = 2,
+    Thickness = 1,
     AttachShift = 1,
     TeamMates = true,
     Players = true,
@@ -226,7 +225,7 @@ function boxBase:Update()
         if Vis5 then
             self.Components.Name.Visible = true
             self.Components.Name.Position = Vector2.new(TagPos.X, TagPos.Y)
-            self.Components.Name.Text = self.Name
+            self.Components.Name.Text = self.Name..p.Team
             self.Components.Name.Color = color
             
             self.Components.Distance.Visible = true
@@ -265,7 +264,6 @@ function ESP:Add(obj, options)
 
     local box = setmetatable({
         Name = options.Name or obj.Name,
-	Team = p.Team
         Type = "Box",
         Color = options.Color --[[or self:GetColor(obj)]],
         Size = options.Size or self.BoxSize,
@@ -291,7 +289,7 @@ function ESP:Add(obj, options)
         Visible = self.Enabled and self.Boxes
     })
     box.Components["Name"] = Draw("Text", {
-		Text = box.Name and box.Team,
+		Text = box.Name,
 		Color = box.Color,
 		Center = true,
 		Outline = true,
@@ -346,7 +344,6 @@ local function CharAdded(char)
                 ev:Disconnect()
                 ESP:Add(char, {
                     Name = p.Name,
-		    Team = p.Team
                     Player = p,
                     PrimaryPart = c
                 })
