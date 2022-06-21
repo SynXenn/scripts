@@ -2044,10 +2044,6 @@ do -- Example UI
 		Tab:AddButton("Simulation Cores ESP", function()
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/SynXenn/scripts/main/Apeirophobia_SCESP", true))()
 		end)
-		Tab:AddSlider("Walkspeed", function(speedvalue)
-			setscriptable(game.Players.LocalPlayer.Character.Humanoid,"WalkSpeed",false)
-            		sethiddenproperty(game.Players.LocalPlayer.Character.Humanoid,"WalkSpeed", speedvalue)
-		end)
 
 	end
 
