@@ -2045,8 +2045,8 @@ do -- Example UI
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/SynXenn/scripts/main/Apeirophobia_SCESP", true))()
 		end)
 		Tab:AddSlider("Walkspeed", function(speedvalue)
-			gethiddenproperty(game.Players.LocalPlayer.Character.Humanoid, "WalkSpeed", true)
-            sethiddenproperty(game.Players.LocalPlayer.Character.Humanoid, "WalkSpeed", speedvalue)
+			setscriptable(game.Players.LocalPlayer.Character.Humanoid,"WalkSpeed",false)
+            		sethiddenproperty(game.Players.LocalPlayer.Character.Humanoid,"WalkSpeed", speedvalue)
 		end)
 
 	end
