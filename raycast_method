@@ -10,8 +10,8 @@ OldNameCall = hookmetamethod(game, "__namecall", function(self,...)
     local Args = {...}
     if getnamecallmethod() == "FindPartOnRayWithIgnoreList" and not checkcaller() and  getgenv().SilentAim  then
         local GivemeHead = ClosestPlayerToCurser()
-        if GivemeHead and GivemeHead.Character and GivemeHead.Character.FindFirstChild(GivemeHead.Character, "Head") then
-            Args[1] = Ray.new(workspace.CurrentCamera.CFrame.Position, (GivemeHead.Character.Head.Position - workspace.CurrentCamera.CFrame.Position).Unit * 1000)
+        if GivemeHead and GivemeHead.Character and GivemeHead.Character.FindFirstChild(GivemeHead.Character, getgenv().AimBot.Hitbox) then
+            Args[1] = Ray.new(workspace.CurrentCamera.CFrame.Position, (GivemeHead.Character[getgenv().AimBot.Hitbox].Position - workspace.CurrentCamera.CFrame.Position).Unit * 1000)
             return OldNameCall(self, unpack(Args))
         end
     end
@@ -25,8 +25,8 @@ OldNameCall = hookmetamethod(game, "__namecall", function(self,...)
     local Args = {...}
     if getnamecallmethod() == "FindPartOnRayWithIgnoreList" and not checkcaller() and  getgenv().SilentAim  then
         local GivemeHead = ClosestPlayerToCurser()
-        if GivemeHead and GivemeHead.Character and GivemeHead.Character.FindFirstChild(GivemeHead.Character, "Head") then
-            Args[1] = Ray.new(workspace.CurrentCamera.CFrame.Position, (GivemeHead.Character.Head.Position - workspace.CurrentCamera.CFrame.Position).Unit * 1000)
+        if GivemeHead and GivemeHead.Character and GivemeHead.Character.FindFirstChild(GivemeHead.Character, getgenv().AimBot.Hitbox) then
+            Args[1] = Ray.new(workspace.CurrentCamera.CFrame.Position, (GivemeHead.Character[getgenv().AimBot.Hitbox].Position - workspace.CurrentCamera.CFrame.Position).Unit * 1000)
             return OldNameCall(self, unpack(Args))
         end
     end
@@ -54,8 +54,8 @@ OldNameCall = hookmetamethod(game, "__namecall", function(self,...)
     local Args = {...}
     if tostring(self) == "Projectiles" and getnamecallmethod() == "FireServer" and getClosestPlayerToCursor()  and getgenv().SilentAim then
     pcall(function()        
-        Args[3] = getClosestPlayerToCursor().Hitbox.Head
-        Args[4] = getClosestPlayerToCursor().Hitbox.Head.Position
+        Args[3] = getClosestPlayerToCursor().Hitbox[getgenv().AimBot.Hitbox]
+        Args[4] = getClosestPlayerToCursor().Hitbox[getgenv().AimBot.Hitbox].Position
         end)
         return self.FireServer(self, unpack(Args))
     end
